@@ -1,0 +1,59 @@
+.custom-modal {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+  
+  .custom-modal .modal-content {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+  
+  .custom-modal .modal-header,
+  .custom-modal .modal-footer {
+    border-color: #222 !important;
+  }
+  
+  .custom-modal .modal-title {
+    color: #fff !important;
+  }
+  
+  .custom-modal .modal-body {
+    padding: 20px !important;
+    text-align: center;
+  }
+  
+  .custom-modal .movieImg {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .custom-modal .movieImg img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .custom-modal .textDescription {
+    margin-top: 20px;
+  }
+  
+  .custom-modal textarea {
+    width: 100%;
+    min-height: 100px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  .state-btn{
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    color: red;
+  }
+  .lableText{
+    color: #db0000;
+    margin-top: 20px;
+  }

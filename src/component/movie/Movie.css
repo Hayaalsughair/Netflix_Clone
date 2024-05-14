@@ -1,0 +1,79 @@
+.a-box {
+  display: inline-block;
+  width: 250px;
+  text-align: center;
+  margin: 40px;
+  border-radius: 15px; 
+}
+
+.img-container {
+  height: 250px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.img-container img {
+  border-radius: 15px;
+  width: 80%;
+}
+
+.text-container {
+  padding: 120px 20px 20px 20px;
+  border-radius: 15px;
+  color: #ffffff;
+  background: #000000;
+  margin: -130px 0px 0px 20px;
+  line-height: 19px;
+  font-size: 20px;
+  box-shadow: 0px 0px 10px rgba(128, 16, 16, 0.79); /* Add shadow effect */
+
+}
+
+.text-container h3 {
+  margin: 20px;
+  color: #db0000;
+  font-size: 20px;
+}
+
+/* button */
+.btn {
+  font-size: 18px;
+  color: #fbfbfbb9;
+  font-family: inherit;
+  font-weight: 400;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+}
+
+.btn:focus,
+.btn:hover {
+  color: #ffffff;
+}
+
+.btn:focus:after,
+.btn:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.btn:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: red;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
