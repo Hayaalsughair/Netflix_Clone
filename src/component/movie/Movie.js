@@ -32,7 +32,7 @@ return(
 
     {
         chosenMovie && <ModalMovie show={show}
-        handleClose={handleClose} chosenMovie={chosenMovie} />
+        handleClose={handleClose} chosenMovie={chosenMovie} updateMovie={props.updateMovie} />
     }
 
     </>
