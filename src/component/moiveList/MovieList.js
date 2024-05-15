@@ -5,10 +5,10 @@ return(
   <>
 
   {
-    props.movies.map((moive)=> {
+    props.movies.map((movie)=> {
       return(
         <>
-        <MovieCard movie={moive} />
+        <MovieCard movie={movie} key ={movie.id} updateMovie={props.updateMovie} />
         </>
       )
     })

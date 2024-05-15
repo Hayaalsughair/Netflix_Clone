@@ -19,15 +19,28 @@ export default function Home(){
         let moviesData = await response.json();
         setMovies(moviesData.results); // <= This to update the state (now the data come from server stored here )
     }
-    
+    //New function to pass update Comment 
+    function updateMovie(newMovie, id) {
+        let updateMovies = movies.map((movie) => {
+            if (movie.id === id ){
+                movie.comment = newMovie.userComment;
+                return movie;
+            }else{
+                return movie; //return even the movie does not change 
+            }
+        })        
+        setMovies(updateMovies)
+    }    
+
     useEffect( ()=>{
-        getMovies();}
+        getMovies(); 
+    }
         , [] )
     return(
         <>
            <div className="home-container">
             <h1 className="home-title"> </h1>
-             <MovieList movies={movies} />
+             <MovieList movies={movies} updateMovie={updateMovie} />
              </div>
         </>
     );

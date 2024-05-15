@@ -1,31 +1,62 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import '../modalMovie/ModalMovie.css';
 import { SlArrowDown } from "react-icons/sl";
 import { SlArrowUp } from "react-icons/sl";
+// import axios from 'axios';
 
+function ModalMovie(props) {
+  //1
+  const commentRef = useRef(null);
 
-function MovieModal(props) {
-  const [comment, setComment] = useState('');
+  //3
+  function handleComment(e){
+    e.preventDefault();
+    let userComment = commentRef.current.value;
+    console.log("user Comment", userComment);
+    //spreading data 
+    let newMovie = { ...props.chosenMovie, comment:userComment};
+    props.updateMovie(newMovie, props.chosenMovie.id);
+  }
 
-  const handleCommentChange = (event) => {
-    setComment(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    // You can handle the submission of the comment here
-    // For example, send it to a server or update state
-    console.log('Comment submitted:', comment);
-    // Clear the comment field after submission
-    setComment('');
-    // Close the modal
-    props.handleClose();
-  };
+  // Handel to DB
+  async function handleAddFav(e, movie) {
+    e.preventDefault();
+    console.log("the movie:",movie);
+    let url = `https://movies-library-2.onrender.com/addMovie`;
+    console.log("Database URL:", url);
+    let data = {
+      title: movie.title,
+      overview: movie.overview,
+      poster_path: movie.poster_path,
+      comment: movie.comment || "No Comment Added "
+    };
+    console.log("the data:",data);
+    
+    let response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+      mode: 'no-cors' // Set mode to 'no-cors'
+    });
+  
+    if (response.ok) {
+      let addedMovie = await response.json();
+      console.log("addedMovie:",addedMovie);   
+    } else {
+      console.log("Response not OK:", response);
+    }
+  }
+  
+  
+  
   const [readMore, setReadMore] = useState(false);
 
   return (
     <Modal show={props.show} onHide={props.handleClose} centered className="custom-modal">
-      <Modal.Header closeButton>
+      <Modal.Header closeButton >
         <Modal.Title>{props.chosenMovie.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -35,30 +66,35 @@ function MovieModal(props) {
         <div className='textDescription'>
         {readMore? props.chosenMovie.overview:`${props.chosenMovie.overview.substring(0,120)}...`}
         <div className="under">
-                        <button className="state-btn" onClick={()=> setReadMore(!readMore)}>
-                            {readMore ? <SlArrowDown />: <SlArrowUp />
-}
-                        </button>
+            <button className="state-btn" onClick={()=> setReadMore(!readMore)}>
+                {readMore ? <SlArrowUp />:<SlArrowDown />}
+            </button>             
         </div>
       </div>
+
         {/* Text area for adding comments */}
+        {props.chosenMovie.comment? props.chosenMovie.comment:"No comment is add"}
+
+        <Form>
         <Form.Group controlId="comment">
           <Form.Label className="lableText"> <h5>Add Comment:</h5></Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            placeholder="Enter your comment here..."
-            value={comment}
-            onChange={handleCommentChange}
-          />
+          {/* 2  use ref */}
+          <Form.Control ref={commentRef} type="text" placeholder="Enter your comment here..."  />
+          <Form.Text className="text-muted">
+          Add your owen comment
+          </Form.Text>
         </Form.Group>
+        <button className="btn" onClick={props.handleClose}> Close </button>
+        <button className="btn" type="submit" onClick={(e)=> handleComment(e)}> add comment </button>
+        <button className="btn" type="submit" onClick={(e)=> {
+        handleAddFav(e, props.chosenMovie)}}> add to favorite </button>
+        </Form>
       </Modal.Body>
       <Modal.Footer>
-      <button className="btn" onClick={props.handleClose}>Close </button>
-      <button className="btn" onClick={handleSubmit}> add to favorite </button>
+      
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default MovieModal;
+export default ModalMovie;
